@@ -38,13 +38,35 @@ html {
     --amarillo: #ffc53d;
     --marron: #824c00/*<--Definicion de una variable*/
 }
-
+/*
 body {
     font-family: Asap;
     color: #413e4a;
     font-weight: 400;
     font-size: 1rem
+}*/
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
+
+/* Estilo para ocultar con transición */
+.hide {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, height 0.5s ease;
+}
+
+/* Estilo cuando se muestra */
+.show {
+    opacity: 1;
+    height: auto;
+    transition: opacity 0.5s ease, height 0.5s ease;
+}
+
 
 body.abierto {
     overflow: hidden;
@@ -105,8 +127,8 @@ a {
 
 .cabecera {
     transition: all .5s ease;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -116,11 +138,15 @@ a {
 }
 
 .cabecera.fondo {
-    background-color: rgba(7, 19, 48, 0.8);
+    background: #b99958;
+    /*opacity: 0.5;*/
+}
+.cabecera.mover{
+    transform: translateY(-100px);
 }
 
 .cabecera.fondo .link-logo .logo {
-    width: 3rem;
+    width: 6rem;
 }
 
 .cabecera .container {
@@ -188,8 +214,8 @@ a {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 100%;
-    border: .2rem solid #fff;
-    color: #fff;
+    border: .2rem solid var(--amarillo);
+    color: var(--amarillo);
     text-decoration: none;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -489,7 +515,7 @@ a {
 
 .btn {
     padding: .8rem 2rem;
-    font-size: 16px;
+    font-size: 2rem;
     text-decoration: none;
     text-align: center;
     border-radius: 15px;
@@ -498,6 +524,14 @@ a {
     -webkit-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease
+}
+#timmer {
+    display: flex;
+    gap: 1%;
+    justify-content: space-evenly;
+}
+#banner #timmer p {
+    line-height: 0;
 }
 
 .btn-circulo {
@@ -521,6 +555,19 @@ a {
     -webkit-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease
+}
+
+button.btn-inicio {
+    border:none;
+    border-radius: 25px;
+    display: flex;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: #b99958;
+    opacity: 0.5;
+    color: white;
 }
 
 .btn-circulo.borde-blanco {
@@ -621,40 +668,55 @@ a {
 
 #banner {
     background-color: #000;
-    height: calc(100vh - 7rem)
+    height: calc(100vh - 7rem);
+    position: relative;
 }
 
-#banner .banner-home {
+#banner .banner-home,
+#content .banner-home {
     width: 100%;
     height: 100%;
     display: block;
-    opacity: .75;
     -o-object-fit: cover;
     object-fit: cover;
     -o-object-position: center;
-    object-position: center
+    object-position: center;
+    filter: blur(2px);
+}
+#content{
+    transition: all .4s ease
 }
 
 #banner .container {
     position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%)
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 #banner .container h1 {
-    font-size: 4.8rem;
+    font-size: 10.8rem;
+    font-weight: 400;
     color: #fff;
-    margin: 0
+    margin: 0;
+    text-align: center;
+}
+#banner .container h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4d3c31;
+    margin: 0;
+    text-align: center;
+    margin: 20px 0;
 }
 
 #banner .container p {
-    font-size: 1.3rem;
+    font-size: 2.3rem;
     color: #fff492;
-    line-height: 1.5
+    line-height: 2.5rem;
+    text-align: center;
 }
 
 #banner.banner-contacto,
@@ -665,6 +727,9 @@ a {
 #banner.banner-nosotros .banner-home {
     -o-object-position: top;
     object-position: top
+}
+#banner .fila h1{
+    margin: 4vw;
 }
 
 #lacarta {
@@ -743,7 +808,7 @@ a {
 }
 
 #testimonio p {
-    margin-bottom: 0
+    margin-bottom: 1rem;
 }
 
 #testimonio .trama-video {
@@ -765,6 +830,12 @@ a {
 #testimonio .container {
     z-index: 3;
     position: relative
+}
+
+#cuadro-testimonio{
+    background-color: rgba(0,0,0,0.5);
+    margin: 0 2rem;
+    border-radius: 10px;
 }
 
 #cocineros .columna-cocinero .contenedor-cocinero-imagen {
@@ -861,7 +932,8 @@ a {
 }
 
 .trama-2 {
-    background-color: rgba(7, 19, 48);
+    
+    background-color: rgba(185, 153, 88);
     width: 100%;
     height: 100%;
     position: fixed;
@@ -971,6 +1043,54 @@ a {
     border: 0.1rem solid var(--amarillo);
 }
 
+.headroom {
+    will-change: transform;
+    transition: transform 200ms linear;
+}
+.headroom--pinned {
+    transform: translateY(0%);
+}
+.headroom--unpinned {
+    transform: translateY(-100%);
+}
+
+.png-banner-top{
+    position: absolute;
+    top: 10vh;
+    z-index: 999;
+    width: 50%;
+}
+
+.fila.fila-timmer {
+    justify-content: center;
+    /* border: 1px solid #fff; */
+    background: #b99958;
+    opacity: 0.5;
+    margin: 20px;
+    border-radius: 25px;
+    flex-direction: column;
+}
+#banner .container h1 {
+    font-size: 2rem;
+}
+
+.time {
+    background-color: #fdf8e5;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-container {
+    width: 20%;
+}
+
+#banner .container p.timmer-item {
+    color: #4d3c31;
+}
+
+
 @media(max-width:1199px) {
     .container {
         width: 960px
@@ -1010,6 +1130,20 @@ a {
     }
     .columna-mb-100 {
         width: 100%
+    }
+    #banner .columna-mb-100{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #banner .container img{
+        width: 100%;
+    }
+
+    
+    #banner .time-container .txt-und-numb{
+        font-size: 18px;
     }
     .columna-mb-50 {
         width: 50%
@@ -1122,13 +1256,15 @@ a {
         text-align: center;
     }
     #banner,
+    #content,
     #banner.banner-contacto,
     #banner.banner-nosotros {
         height: 100vh
     }
-    #banner .container h1 {
-        font-size: 4rem
+    #content{
+
     }
+   
     #servicios .contenedor-serv {
         height: auto;
         margin-bottom: 1rem
@@ -1170,5 +1306,13 @@ a {
         top: 50%;
         left: 0;
         transform: translateY(-50%);
+    }
+    
+    .cabecera{
+        padding: .5rem 0;
+    }
+
+    header p.txt-und-numb {
+        margin: 2px 10px;
     }
 }
